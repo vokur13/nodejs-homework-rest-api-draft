@@ -1,4 +1,6 @@
-const app = require('./app');
+// import app from './app';
+import express from 'express';
+const app = express();
 
 const PORT = 3000;
 

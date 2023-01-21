@@ -1,13 +1,14 @@
 // const fs = require('fs/promises')
-// const { nanoid } = require('nanoid');
 import { nanoid } from 'nanoid';
-const fs = require('fs').promises;
-const path = require('path');
-// const { nanoid } = require('nanoid');
+import { promises as fs } from 'fs';
+import { resolve } from 'path';
+// const fs = require('fs').promises;
+// const path = require('path');
 
-const contactsPath = path.resolve('models/contactsDraft.json');
+// const contactsPath = path.resolve('models/contactsDraft.json');
+const contactsPath = resolve('models/contactsDraft.json');
 
-const listContacts = async () => {
+export const listContacts = async () => {
   try {
     return JSON.parse(await fs.readFile(contactsPath, 'utf8'));
   } catch (error) {
@@ -15,7 +16,7 @@ const listContacts = async () => {
   }
 };
 
-const getContactById = async (contactId) => {
+export const getContactById = async (contactId) => {
   try {
     const data = JSON.parse(await fs.readFile(contactsPath, 'utf8'));
     return await data.find((item) => item.id === contactId);
@@ -24,7 +25,7 @@ const getContactById = async (contactId) => {
   }
 };
 
-const removeContact = async (contactId) => {
+export const removeContact = async (contactId) => {
   try {
     const data = JSON.parse(await fs.readFile(contactsPath, 'utf8'));
     const filteredList = await data.filter((item) => item.id !== contactId);
@@ -35,11 +36,10 @@ const removeContact = async (contactId) => {
   }
 };
 
-const addContact = async ({ name, email, phone }) => {
+export const addContact = async ({ name, email, phone }) => {
   try {
     const data = JSON.parse(await fs.readFile(contactsPath, 'utf8'));
     const newContact = { id: nanoid(), name, email, phone };
-    // const newContact = { body };
     const newList = [...data, newContact];
     await fs.writeFile(contactsPath, JSON.stringify(newList));
     return newContact;
@@ -50,10 +50,10 @@ const addContact = async ({ name, email, phone }) => {
 
 // const updateContact = async (contactId, body) => {};
 
-module.exports = {
-  listContacts,
-  getContactById,
-  removeContact,
-  addContact,
-  // updateContact,
-};
+// module.exports = {
+//   listContacts,
+//   getContactById,
+//   removeContact,
+//   addContact,
+//   // updateContact,
+// };
